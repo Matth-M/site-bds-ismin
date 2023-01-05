@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+	<nav class="navbar">
+		<ul>
+			<li><a href="/login" id="login">Login</a></li>
+			<li><a href="/signUp" id="sign-up">Sign-up</a></li>
+			<li><a href="/logout" id="logout">Logout</a></li>
+			<li><a href="/home" id="home">Home</a></li>
+		</ul>
+	</nav>
+	<header>
+		<h1>BDS ISMIN</h1>
+	</header>
+	<div class="content">{% block content %}{% endblock %}</div>
+
+	<script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+
+</html>
