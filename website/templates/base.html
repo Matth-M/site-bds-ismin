@@ -20,6 +20,18 @@
 	<header>
 		<h1>BDS ISMIN</h1>
 	</header>
+	<div class="flash">
+		{% with messages = get_flashed_messages(with_categories=true) %}
+		{% if messages %}
+		{% for message in messages %}
+		<div class="message" role="alert">
+			{{ message }}
+			<button type="button">Dismiss</button>
+		</div>
+		{% endfor %}
+		{% endif %}
+		{% endwith %}
+	</div>
 	<div class="content">{% block content %}{% endblock %}</div>
 
 	<script src="{{ url_for('static', filename='main.js') }}"></script>
