@@ -1,11 +1,42 @@
-FRONT_END_DIR=client
+## Change for your preferences
+VENV=env
+APP=website
 
-PNPM=pnpm
+# VIRTUAL ENVIRONMENT
+VENV_CLI=venv
+VENV_BIN_DIR=$(VENV)/bin
 
-# Front end commands
+REQUIREMENTS=requirements.txt
 
-front-dev: $(FRONT_END_DIR)
-	$(PNPM) -C $(FRONT_END_DIR) run dev
+PIP=$(VENV_BIN_DIR)/pip
 
-$(FRONT_END_DIR):
-	mkdir -p $@
+## VIRTUAL ENVIRONMENT
+
+$(VENV):
+	python3 -m $(VENV_CLI) $(VENV)
+	@$(PIP) install -r $(REQUIREMENTS)
+
+.PHONY: freeze
+freeze: $(VENV)
+	$(PIP) freeze > $(REQUIREMENTS)
+	@echo "Requirements updated"
+
+.PHONY: show-requirements
+show-requirements:
+	@cat $(REQUIREMENTS)
+
+.PHONY: clean
+clean:
+	@rm -rf .cache
+	@rm -rf htmlcov coverage.xml .coverage
+	@find . -name *.pyc -delete
+	@find . -name db.sqlite3 -delete
+	@find . -type d -name __pycache__ -delete
+	@rm -rf venv
+	@rm -rf .tox
+
+
+# start development server
+.PHONY: dev-server
+dev-server: $(VENV)
+	$(VENV_BIN_DIR)/flask --app $(APP) run
