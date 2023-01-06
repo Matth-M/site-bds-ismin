@@ -9,17 +9,22 @@
 </head>
 
 <body>
-	<nav class="navbar">
-		<ul>
-			<li><a href="/login" id="login">Login</a></li>
-			<li><a href="/sign-up" id="signUp">Sign-up</a></li>
-			<li><a href="/logout" id="logout">Logout</a></li>
-			<li><a href="/" id="home">Home</a></li>
-		</ul>
-	</nav>
 	<header>
 		<h1>BDS ISMIN</h1>
 	</header>
+	<nav class="navbar">
+		<ul>
+			{% if g.user %}
+			<li><span>{{ g.user['username'] }}</span>
+			<li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+			{% else %}
+			<li><a href="{{ url_for('auth.sign_up') }}">Register</a>
+			<li><a href="{{ url_for('auth.login') }}">Log In</a>
+			{% endif %}
+			<li><a href="{{ url_for('views.home') }}">Home</a>
+			<li><a href="{{ url_for('views.calendar') }}">Calendar</a>
+		</ul>
+	</nav>
 	<div class="flash">
 		{% with messages = get_flashed_messages(with_categories=true) %}
 		{% if messages %}
