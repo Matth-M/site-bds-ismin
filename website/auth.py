@@ -14,7 +14,6 @@ auth = Blueprint('auth', __name__, url_prefix='/auth')
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
-        username = request.form.get('username')
         password = request.form.get('password')
         error = None
         db = get_db()
@@ -24,12 +23,13 @@ def login():
 
         if user is None:
             error = 'Incorrect email.'
-        elif not check_password_hash(user['password'], password):
+        elif not check_password_hash(user['password'], str(password)):
             error = 'Incorrect Password'
 
         if error is None:
             session.clear()
             session['user_id'] = user['id']
+            print('Logged in')
             redirect('views.home')
 
 
@@ -37,7 +37,8 @@ def login():
 
 @auth.route('/logout')
 def logout():
-    return redirect(url_for('views.home'))
+    session.clear()
+    return redirect(url_for('views.index'))
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
@@ -65,11 +66,13 @@ def sign_up():
                         "INSERT INTO user (email, username, password) VALUES (?, ?, ?)",
                         (email, username, generate_password_hash(password))
                 )
-
             except db.IntegrityError:
-                error = f'{email} is already email.'
-            else: 
-                redirect('auth.login')
+                error = f'{email} is already used.'
+            else:
+                flash('User created successfully!')
+                # redirect('auth.login')
+
+        flash(f'{error}')
 
     return render_template("sign_up.html")
 
