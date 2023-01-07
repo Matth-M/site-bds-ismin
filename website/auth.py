@@ -71,6 +71,7 @@ def sign_up():
                         "INSERT INTO user (email, username, password) VALUES (?, ?, ?)",
                         (email, username, generate_password_hash(password))
                 )
+                db.commit()
             except db.IntegrityError:
                 error = f'{email} is already used.'
             else:
