@@ -31,9 +31,11 @@ def create_app(test_config=None):
     # Import blueprints
     from .views import views
     from .auth import auth
+    from .gym import gym
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/auth')
+    app.register_blueprint(gym, url_prefix='/auth')
 
     from . import db
     db.init_app(app)
