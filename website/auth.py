@@ -34,9 +34,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            print('Logged in')
-            redirect('views.home')
-
+            return redirect(url_for('views.index'))
 
     return render_template("login.html")
 
@@ -76,7 +74,7 @@ def sign_up():
                 error = f'{email} is already used.'
             else:
                 flash('User created successfully!')
-                # redirect('auth.login')
+                return redirect(url_for('auth.login'))
 
         flash(f'{error}')
 
