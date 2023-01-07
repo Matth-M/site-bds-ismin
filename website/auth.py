@@ -13,19 +13,24 @@ auth = Blueprint('auth', __name__, url_prefix='/auth')
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        # Get form data
         email = request.form.get('email')
         password = request.form.get('password')
         error = None
+
+        # Fetch user
         db = get_db()
         user = db.execute(
                 "select * from user where email = ?", (email,)
         ).fetchone()
 
+        # Check if user exists
         if user is None:
             error = 'Incorrect email.'
         elif not check_password_hash(user['password'], str(password)):
             error = 'Incorrect Password'
 
+        # Add user info to the session
         if error is None:
             session.clear()
             session['user_id'] = user['id']
