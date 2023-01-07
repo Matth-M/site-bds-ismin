@@ -6,7 +6,7 @@ views = Blueprint('views', __name__, url_prefix='/')
 
 
 @views.route('/')
-def home():
+def index():
     return render_template("index.html")
 
 @views.route('/calendar')

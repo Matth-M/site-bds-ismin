@@ -100,4 +100,3 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
-
