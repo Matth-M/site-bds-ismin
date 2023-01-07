@@ -12,7 +12,7 @@ PIP=$(VENV_BIN_DIR)/pip --require-virtualenv
 
 ## VIRTUAL ENVIRONMENT
 
-create-venv:
+$(VENV):
 	python3 -m $(VENV_CLI) $(VENV)
 	@$(PIP) install -r $(REQUIREMENTS)
 
@@ -41,7 +41,7 @@ show-requirements:
 # start development server
 .PHONY: dev-server
 dev-server: $(VENV)
-	$(VENV_BIN_DIR)/flask --app $(APP) run
+	$(VENV_BIN_DIR)/flask --app $(APP) --debug run
 
 
 
