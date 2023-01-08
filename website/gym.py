@@ -20,7 +20,7 @@ def planning():
     db = get_db()
     # Fetch all the reservations
     reservations = db.cursor().execute(
-            'SELECT r.id AS ID, r.time AS time, u.id AS user_id'
+            'SELECT r.id AS ID, r.time AS time, u.id AS user_id, u.username'
             ' FROM reservation r'
             ' JOIN user u ON r.user_id = u.id'
     ).fetchall()
@@ -36,7 +36,9 @@ def planning():
         # Convert Row objects into tuples so they can be serialized
         reservations = [{ 'id':row['id'],
                          'time':row['time'],
-                         'user_id': row['user_id'] }
+                         'user_id': row['user_id'] ,
+                         'username': row['username']
+                         }
                         for row in reservations]
         reservations = json.dumps(reservations)
 
