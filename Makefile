@@ -1,6 +1,12 @@
 ## Change for your preferences
 VENV=env
 APP=website
+INIT_DB_CMD=init_db
+
+
+# Path
+
+ROOT_DIR=.
 
 # VIRTUAL ENVIRONMENT
 VENV_CLI=venv
@@ -43,6 +49,10 @@ show-requirements:
 dev-server: $(VENV)
 	$(VENV_BIN_DIR)/flask --app $(APP) --debug run
 
+# Clear the existing data and create new tables
+.PHONY: init-d
+init-db: $(VENV)
+	$(VENV_BIN_DIR)/flask --app $(APP) $(INIT_DB_CMD)
 
 
 
@@ -52,7 +62,8 @@ clean:
 	@rm -rf .cache
 	@rm -rf htmlcov coverage.xml .coverage
 	@find . -name *.pyc -delete
-	@find . -name db.sqlite3 -delete
+	@find . -name *.sqlite3 -delete
 	@find . -type d -name __pycache__ -delete
 	@rm -rf $(VENV)
 	@rm -rf .tox
+	@rm -rf $(ROOT_DIR)/instance
