@@ -35,6 +35,8 @@ def login():
             session.clear()
             session['user_id'] = user['id']
             return redirect(url_for('views.index'))
+        else:
+            flash(error)
 
     return render_template("login.html")
 
