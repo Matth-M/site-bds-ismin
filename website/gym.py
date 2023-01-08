@@ -20,16 +20,26 @@ def planning():
     db = get_db()
     # Fetch all the reservations
     reservations = db.cursor().execute(
-            'SELECT * FROM reservation'
+            'SELECT r.id AS ID, r.time AS time, u.id AS user_id'
+            ' FROM reservation r'
+            ' JOIN user u ON r.user_id = u.id'
     ).fetchall()
 
-    # Convert Row objects into tuples so they can be serialized
-    reservations = [tuple(row) for row in reservations]
+    print(reservations)
 
-    # reservations = [reservation.timestamp() for reservation in reservations]
-    #
-    # # Serialize the objects
-    # reservations = json.dumps(reservations)
+    # Check if there are reservations made
+    if reservations is None:
+        reservations = []
+    else:
+
+
+        # Convert Row objects into tuples so they can be serialized
+        reservations = [{ 'id':row['id'],
+                         'time':row['time'],
+                         'user_id': row['user_id'] }
+                        for row in reservations]
+        reservations = json.dumps(reservations)
+
 
     return render_template('gym_planning.html', reservations=reservations)
 
@@ -42,8 +52,6 @@ def create():
         # Get the reservation_time input by the user
         raw_reservation_time = request.form.get('time')
         reservation_time = parse(raw_reservation_time)
-        print(f'raw_reservation_time {raw_reservation_time}')
-        print(f'reservation_time: {reservation_time}')
 
         # Check for incorrect input
         error = None
