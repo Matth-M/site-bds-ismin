@@ -4,10 +4,11 @@ Planning
 {% endblock %}
 {% block content %}
 <h1>Planning</h1>
-<div id='reservations' data-reservations='{{ reservations|tojson }}'></div>
-<form method="post">
+<div id='reservations' data-reservations='{{ reservations }}'></div>
+<form action="{{ url_for('gym.create') }}"method="post">
 	<label for="time">Time</label>
 	<input type="datetime-local" name="time" id="time" value="time" required>
 	<input type="submit" value="Save">
 </form>
+{{ reservations }}
 {% endblock %}
