@@ -4,15 +4,14 @@ const WEEK_LENGTH = 24 * 60 * 60 * 1000 * 7; // A week length in ms
 let reservationsDiv = document.querySelector("#reservations");
 let reservationsJSON = JSON.parse(reservationsDiv.dataset.reservations).list;
 
-console.log(reservationsJSON);
-
 // Reservation class is used to turn the JSON we fetched into objects
 // These objects will then be redisplayed on the planning
 class Reservation {
-	constructor(id, time, user_id) {
+	constructor(id, time, user_id, username) {
 		this.id = id;
 		this.time = new Date(time);
 		this.user_id = user_id;
+		this.username = username;
 	}
 
 	onCurrentWeek() {
@@ -32,19 +31,27 @@ reservationsJSON.forEach((reservationJSON) => {
 	let reservation = new Reservation(
 		reservationJSON.id,
 		reservationJSON.time,
-		reservationJSON.user_id
+		reservationJSON.user_id,
+		reservationJSON.username
 	);
 
 	reservations.push(reservation);
 });
 
-console.log(reservations);
+const tbody = document.querySelector('#planning tbody');
+const startTime = 6; // Gym opens at 06:00
 
 reservations.forEach((reservation) => {
 	if(reservation.onCurrentWeek()) {
+		// The number of the day of the week of the reservation
 		const dayNb = reservation.time.getDay();
+
 		const hour = reservation.time.getHours();
+		const rowNb = hour - startTime;
+		const row = tbody.children[rowNb];
 
-
+		const cellNb = dayNb + 1;
+		const cell = row.children[cellNb]
+		cell.textContent = reservation.username
 	}
 });
