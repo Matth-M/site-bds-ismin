@@ -8,12 +8,19 @@ INIT_DB_CMD=init_db
 
 ROOT_DIR=.
 
+BUILD_DIR=$(ROOT_DIR)/$(APP)/build
+SRC_DIR=$(ROOT_DIR)/$(APP)/src
+SASS_DIR=$(SRC_DIR)/sass
+SASS_ENTRY=$(SASS_DIR)/main.scss
+
 # VIRTUAL ENVIRONMENT
 VENV_CLI=venv
 VENV_BIN_DIR=$(VENV)/bin
 
 REQUIREMENTS=requirements.txt
 
+
+SASS=sass
 PIP=$(VENV_BIN_DIR)/pip --require-virtualenv
 
 ## VIRTUAL ENVIRONMENT
@@ -53,6 +60,13 @@ dev-server: $(VENV)
 .PHONY: init-d
 init-db: $(VENV)
 	$(VENV_BIN_DIR)/flask --app $(APP) $(INIT_DB_CMD)
+
+.PHONY: sass-watch
+sass-watch: $(SASS_DIR)
+	$(SASS) --watch $(SASS_ENTRY) $(BUILD_DIR)/index.css
+
+$(SASS_DIR):
+	@mkdir -p $@
 
 
 
