@@ -37,10 +37,11 @@ def planning():
         reservations = [{ 'id':row['id'],
                          'time':row['time'],
                          'user_id': row['user_id'] ,
-                         'username': row['username']
+                         'username': row['username'],
                          }
                         for row in reservations]
-        reservations = json.dumps(reservations)
+
+        reservations = json.dumps({'list' : reservations})
 
 
     return render_template('gym_planning.html', reservations=reservations)
