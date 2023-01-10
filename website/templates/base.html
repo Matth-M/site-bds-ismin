@@ -39,7 +39,8 @@
 	</div>
 	<div class="content">{% block content %}{% endblock %}</div>
 
-	<script src="{{ url_for('static', filename='main.js') }}"></script>
+	{% block script %}
+	{% endblock %}
 </body>
 
 </html>
