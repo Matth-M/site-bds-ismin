@@ -1,0 +1,7 @@
+@use 'variables';
+
+nav {
+  grid-area: nav;
+  padding: 0 variables.$side-padding;
+  background-color: variables.$nav-bg;
+}

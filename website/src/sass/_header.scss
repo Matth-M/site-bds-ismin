@@ -1,0 +1,8 @@
+@use 'variables';
+
+header {
+  grid-area: header;
+  color: white;
+  background-color: variables.$accent;
+  padding: 0 variables.$side-padding;
+}

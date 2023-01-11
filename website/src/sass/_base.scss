@@ -1,0 +1,34 @@
+@use "nav";
+@use "header";
+@use "table";
+@use "variables";
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+body,
+html {
+  height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+ul {
+  list-style: none;
+}
+
+.main {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  padding: 0 variables.$side-padding;
+
+}
