@@ -9,6 +9,7 @@ INIT_DB_CMD=init_db
 ROOT_DIR=.
 
 BUILD_DIR=$(ROOT_DIR)/$(APP)/build
+STATIC_DIR=$(ROOT_DIR)/$(APP)/static
 SRC_DIR=$(ROOT_DIR)/$(APP)/src
 SASS_DIR=$(SRC_DIR)/sass
 SASS_ENTRY=$(SASS_DIR)/main.scss
@@ -20,6 +21,7 @@ VENV_BIN_DIR=$(VENV)/bin
 REQUIREMENTS=requirements.txt
 
 
+# Binary
 SASS=sass
 PIP=$(VENV_BIN_DIR)/pip --require-virtualenv
 
@@ -63,7 +65,7 @@ init-db: $(VENV)
 
 .PHONY: sass-watch
 sass-watch: $(SASS_DIR)
-	$(SASS) --watch $(SASS_ENTRY) $(BUILD_DIR)/index.css
+	$(SASS) --watch $(SASS_ENTRY) $(STATIC_DIR)/index.css
 
 $(SASS_DIR):
 	@mkdir -p $@
