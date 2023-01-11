@@ -65,7 +65,7 @@ init-db: $(VENV)
 
 .PHONY: sass-watch
 sass-watch: $(SASS_DIR)
-	$(SASS) --watch $(SASS_ENTRY) $(STATIC_DIR)/index.css
+	$(SASS) --watch $(SASS_DIR):$(STATIC_DIR) # $(STATIC_DIR)/index.css
 
 $(SASS_DIR):
 	@mkdir -p $@
