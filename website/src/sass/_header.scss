@@ -1,4 +1,4 @@
-@use 'variables';
+@use "variables";
 
 header {
   grid-area: header;
@@ -8,26 +8,37 @@ header {
   display: flex;
   height: 80px;
 
+  .title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   h1 {
-	  flex-grow: 0;
+    flex-grow: 0;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: auto;
   }
 
   ul {
-	  margin-left: auto;
     list-style: none;
-	display: flex;
-	gap: 0 50px;
-	// justify-content: space-between;
-	padding: 0 20px;
+    display: flex;
+    gap: 0 50px;
+    // justify-content: space-between;
+    padding: 0 20px;
 
-	li {
-		flex-grow: 1;
+    li {
+      flex-grow: 1;
+    }
 
-	}
-
-	a {
-		color: white;
-		text-decoration: none;
-	}
+    a {
+      color: white;
+      text-decoration: none;
+    }
   }
 }

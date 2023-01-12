@@ -12,18 +12,22 @@
 
 <body>
 	<header>
-		<h1>BDS ISMIN</h1>
-		<ul>
-			{% if g.user %}
-			<li><span>User: {{ g.user['username'] }}</span>
-			<li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-				{% else %}
-			<li><a href="{{ url_for('auth.sign_up') }}">Sign Up</a>
-			<li><a href="{{ url_for('auth.login') }}">Log In</a>
-				{% endif %}
-			<li><a href="{{ url_for('views.index') }}">Home</a>
-			<li><a href="{{ url_for('gym.planning') }}">Planning Gym</a>
-		</ul>
+		<div class="title">
+			<h1>BDS ISMIN</h1>
+		</div>
+		<div class="links">
+			<ul>
+				{% if g.user %}
+				<li><span>User: {{ g.user['username'] }}</span>
+				<li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+					{% else %}
+				<li><a href="{{ url_for('auth.sign_up') }}">Sign Up</a>
+				<li><a href="{{ url_for('auth.login') }}">Log In</a>
+					{% endif %}
+				<li><a href="{{ url_for('views.index') }}">Home</a>
+				<li><a href="{{ url_for('gym.planning') }}">Planning Gym</a>
+			</ul>
+		</div>
 	</header>
 	<div class="main">
 		<div class="flash">
