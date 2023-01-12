@@ -38,11 +38,8 @@
 			{% endif %}
 			{% endwith %}
 		</div>
-		{% endfor %}
-		{% endif %}
-		{% endwith %}
+		{% block content %}{% endblock %}
 	</div>
-	<div class="content">{% block content %}{% endblock %}</div>
 
 	{% block script %}
 	{% endblock %}
