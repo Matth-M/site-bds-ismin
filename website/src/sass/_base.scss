@@ -1,4 +1,3 @@
-@use "nav";
 @use "header";
 @use "table";
 @use "variables";
@@ -21,12 +20,7 @@ body {
   flex-direction: column;
 }
 
-ul {
-  list-style: none;
-}
-
 .main {
-  grid-area: main;
   display: flex;
   flex-direction: column;
   padding: 0 variables.$side-padding;

@@ -11,27 +11,30 @@
 <body>
 	<header>
 		<h1>BDS ISMIN</h1>
-	</header>
-	<nav class="navbar">
 		<ul>
 			{% if g.user %}
 			<li><span>User: {{ g.user['username'] }}</span>
 			<li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-			{% else %}
+				{% else %}
 			<li><a href="{{ url_for('auth.sign_up') }}">Sign Up</a>
 			<li><a href="{{ url_for('auth.login') }}">Log In</a>
-			{% endif %}
+				{% endif %}
 			<li><a href="{{ url_for('views.index') }}">Home</a>
 			<li><a href="{{ url_for('gym.planning') }}">Planning Gym</a>
 		</ul>
-	</nav>
-	<div class="flash">
-		{% with messages = get_flashed_messages(with_categories=true) %}
-		{% if messages %}
-		{% for message in messages %}
-		<div class="message" role="alert">
-			{{ message }}
-			<button type="button">Dismiss</button>
+	</header>
+	<div class="main">
+		<div class="flash">
+			{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+			{% for message in messages %}
+			<div class="message" role="alert">
+				{{ message }}
+				<button type="button">Dismiss</button>
+			</div>
+			{% endfor %}
+			{% endif %}
+			{% endwith %}
 		</div>
 		{% endfor %}
 		{% endif %}

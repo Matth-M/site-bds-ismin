@@ -5,4 +5,29 @@ header {
   color: white;
   background-color: variables.$accent;
   padding: 0 variables.$side-padding;
+  display: flex;
+  height: 80px;
+
+  h1 {
+	  flex-grow: 0;
+  }
+
+  ul {
+	  margin-left: auto;
+    list-style: none;
+	display: flex;
+	gap: 0 50px;
+	// justify-content: space-between;
+	padding: 0 20px;
+
+	li {
+		flex-grow: 1;
+
+	}
+
+	a {
+		color: white;
+		text-decoration: none;
+	}
+  }
 }
