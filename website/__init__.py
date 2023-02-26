@@ -28,6 +28,20 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    # Make following imports available in templates
+    import datetime
+
+    @app.context_processor
+    def add_imports():
+        return dict(datetime=datetime.datetime)
+
+    @app.context_processor
+    def time_utility_processor():
+        def format_time_string(string, format="%Y-%m-%d %H:%M:%S"):
+            return datetime.datetime.strptime(string, format)
+
+        return dict(format_time_string=format_time_string)
+
     # Import blueprints
     from .views import views
     from .auth import auth

@@ -13,13 +13,13 @@
 	<thead>
 		<tr>
 			<th>Hours</th>
-			<th>Sunday</th>
 			<th>Monday</th>
 			<th>Tuesday</th>
 			<th>Wednesday</th>
 			<th>Thursday</th>
 			<th>Friday</th>
 			<th>Saturday</th>
+			<th>Sunday</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -27,7 +27,14 @@
 		<tr>
 			<th>{{ "{}H- {}H".format(hour,hour+1) }}</th>
 			{% for day in range(0,7) %}
-			<td></td>
+			<td>
+				{% for reservation in reservations %}
+				{% if format_time_string(reservation.time).weekday() == day and
+				format_time_string(reservation.time).hour == hour %}
+				{{ format_time_string(reservation.time).weekday(), reservation.username, reservation.time, day }}
+				{% endif %}
+				{% endfor %}
+			</td>
 			{% endfor %}
 		</tr>
 		</tr>
