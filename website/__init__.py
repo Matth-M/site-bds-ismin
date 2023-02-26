@@ -37,10 +37,16 @@ def create_app(test_config=None):
 
     @app.context_processor
     def time_utility_processor():
-        def format_time_string(string, format="%Y-%m-%d %H:%M:%S"):
-            return datetime.datetime.strptime(string, format)
+        def format_time_string(date_string, format="%Y-%m-%d %H:%M:%S"):
+            return datetime.datetime.strptime(date_string, format)
 
-        return dict(format_time_string=format_time_string)
+        def is_same_week(date):
+            today = datetime.datetime.today()
+            year, week, weekday = date.isocalendar()
+            current_year, current_week, current_weekday = today.isocalendar()
+            return year == current_year and week == current_week
+
+        return dict(format_time_string=format_time_string, is_same_week=is_same_week)
 
     # Import blueprints
     from .views import views

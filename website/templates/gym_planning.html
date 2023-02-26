@@ -4,8 +4,6 @@
 {% block title %}Planning{% endblock %}
 {% block content %}
 <h1>Planning</h1>
-<!-- This div stores the data sent by the Flask server -->
-<div id='reservations' data-reservations='{{ reservations }}'></div>
 <table id="planning">
 	<caption>
 		Gym Planning
@@ -29,8 +27,9 @@
 			{% for day in range(0,7) %}
 			<td>
 				{% for reservation in reservations %}
-				{% if format_time_string(reservation.time).weekday() == day and
-				format_time_string(reservation.time).hour == hour %}
+				{% set reservation_time = format_time_string(reservation.time) %}
+				{% if reservation_time.weekday()== day and
+				reservation_time.hour == hour and is_same_week(reservation_time)%}
 				{{ format_time_string(reservation.time).weekday(), reservation.username, reservation.time, day }}
 				{% endif %}
 				{% endfor %}
