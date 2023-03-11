@@ -55,15 +55,16 @@ def create():
             print(reservation_time.utcnow() < datetime.datetime.utcnow())
             error = "Please select a valid time"
 
-        # Insert data into the database
-        if error is not None:
-            flash(error)
-        else:
+        if error is None:
             db = get_db()
-            db.execute(
-                "INSERT INTO reservation (time, user_id)" "VALUES (?, ?)",
-                (reservation_time, g.user["id"]),
-            )
-            db.commit()
+            try:
+                db.execute(
+                    "INSERT INTO reservation (time, user_id)" "VALUES (?, ?)",
+                    (reservation_time, g.user["id"]),
+                )
+                db.commit()
+            except db.IntegrityError:
+                error = "Slot is already taken."
+        flash(error)
 
     return redirect(url_for("gym.planning"))
