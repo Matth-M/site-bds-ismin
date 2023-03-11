@@ -3,11 +3,8 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='planning.css') }}">{% endblock %}
 {% block title %}Planning{% endblock %}
 {% block content %}
-<h1>Planning</h1>
+<h1 id="title">Planning</h1>
 <table id="planning">
-	<caption>
-		Gym Planning
-	</caption>
 	<thead>
 		<tr>
 			<th>Hours</th>
@@ -32,7 +29,7 @@
 				{% set reservation_time = format_time_string(reservation.time) %}
 				{% if reservation_time.weekday()== day and
 				reservation_time.hour == hour and is_same_week(reservation_time)%}
-				{{ format_time_string(reservation.time).weekday(), reservation.username, reservation.time, day }}
+				<div class="inner-slot">{{ reservation.username }}</div>
 				{% endif %}
 				{% endfor %}
 			</td>

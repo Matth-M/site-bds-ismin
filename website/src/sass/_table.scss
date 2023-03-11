@@ -1,8 +1,17 @@
+@use "variables" as var;
+
 table {
   border-collapse: collapse;
 
-  * {
-	  padding: 5px 10px;
+  td,
+  th {
+    padding: 5px 10px;
     border: 1px solid black;
+  }
+
+  .inner-slot {
+    text-align: center;
+    background-color: var.$accent;
+    color: white;
   }
 }
