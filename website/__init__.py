@@ -37,6 +37,7 @@ def create_app(test_config=None):
 
     @app.context_processor
     def time_utility_processor():
+        # Return a datetime object based on a string with given format
         def format_time_string(date_string, format="%Y-%m-%d %H:%M:%S"):
             return datetime.datetime.strptime(date_string, format)
 
