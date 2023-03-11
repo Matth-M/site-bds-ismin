@@ -27,6 +27,8 @@
 			{% for day in range(0,7) %}
 			<td>
 				{% for reservation in reservations %}
+				{# get a datetime object based on reservation.time #}
+				{# to check if the reservation belongs to this slot #}
 				{% set reservation_time = format_time_string(reservation.time) %}
 				{% if reservation_time.weekday()== day and
 				reservation_time.hour == hour and is_same_week(reservation_time)%}
