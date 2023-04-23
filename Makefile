@@ -60,7 +60,7 @@ dev-server: $(VENV)
 	$(VENV_BIN_DIR)/flask --app $(APP) --debug run
 
 # Clear the existing data and create new tables
-.PHONY: init-d
+.PHONY: init-db
 init-db: $(VENV)
 	$(VENV_BIN_DIR)/flask --app $(APP) $(INIT_DB_CMD)
 
