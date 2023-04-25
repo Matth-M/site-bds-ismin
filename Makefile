@@ -23,7 +23,7 @@ REQUIREMENTS=requirements.txt
 
 
 # Binary
-SASS=sass
+SASS=pnpm sass
 PIP=$(VENV_BIN_DIR)/pip --require-virtualenv
 
 ## VIRTUAL ENVIRONMENT
