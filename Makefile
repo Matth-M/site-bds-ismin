@@ -10,7 +10,6 @@ ROOT_DIR=.
 
 APP_DIR=$(ROOT_DIR)/$(APP)
 
-BUILD_DIR=$(APP_DIR)/build
 STATIC_DIR=$(APP_DIR)/static
 SASS_DIR=$(APP_DIR)/scss
 SASS_ENTRY=$(SASS_DIR)/main.scss
