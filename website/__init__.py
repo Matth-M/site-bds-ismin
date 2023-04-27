@@ -1,9 +1,6 @@
 import os
 from flask import Flask
 
-# from flask_sqlalchemy import SQLAlchemy
-#
-# db = SQLAlchemy()
 # DB_NAME = "database.db"
 
 
@@ -13,6 +10,7 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY="dev",
         DATABASE=os.path.join(app.instance_path, "flaskr.sqlite"),
+        SQLALCHEMY_DATABASE_URI="sqlite:///database.db",  # Given by the hosting platform
     )
 
     if test_config is None:
@@ -61,7 +59,7 @@ def create_app(test_config=None):
     app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(gym, url_prefix="/auth")
 
-    from . import db
+    from .models import db
 
     db.init_app(app)
 
