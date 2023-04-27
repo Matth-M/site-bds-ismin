@@ -24,6 +24,8 @@ REQUIREMENTS=requirements.txt
 # Binary
 SASS=pnpm sass
 PIP=$(VENV_BIN_DIR)/pip --require-virtualenv
+PYTHON=$(VENV_BIN_DIR)/python
+
 
 ## VIRTUAL ENVIRONMENT
 
@@ -73,9 +75,9 @@ init-db: $(VENV)
 sass-watch: $(SASS_DIR)
 	$(SASS) --watch $(SASS_DIR):$(STATIC_DIR) # $(STATIC_DIR)/index.css
 
-$(SASS_DIR):
-	@mkdir -p $@
-
+.PHONY: shell
+shell: $(VENV)
+	$(PYTHON) -m flask --app $(APP) shell
 
 
 
