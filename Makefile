@@ -32,14 +32,16 @@ $(VENV):
 	@$(PIP) install -r $(REQUIREMENTS)
 
 .PHONY: add-packages
-add-packages: $(VENV) freeze
+add-packages: $(VENV)
 	@read -p "packages? : " PACK \
 	&& $(PIP) install $${PACK}
+	make freeze
 
 .PHONY: remove-packages
-remove-packages: $(VENV) freeze
+remove-packages: $(VENV)
 	@read -p "packages? : " PACK \
 	&& $(PIP) uninstall --yes $${PACK}
+	make freeze
 
 .PHONY: freeze
 freeze: $(VENV)
@@ -49,6 +51,10 @@ freeze: $(VENV)
 .PHONY: show-requirements
 show-requirements:
 	@cat $(REQUIREMENTS)
+
+.PHONY: install-packages
+install-packages: $(VENV)
+	$(PIP) install -r $(REQUIREMENTS)
 
 
 
