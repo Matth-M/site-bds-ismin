@@ -8,26 +8,17 @@ from flask import request
 from flask import flash
 from flask import g
 from dateutil.parser import parse
+from sqlalchemy import select
 from website.auth import login_required
 
-from website.db import get_db
+from .models import db, Reservation, User
 
 gym = Blueprint("gym", __name__, url_prefix="/gym")
 
 
 @gym.route("/planning", methods=["GET"])
 def planning():
-    db = get_db()
-    # Fetch all the reservations
-    reservations = (
-        db.cursor()
-        .execute(
-            "SELECT r.id AS ID, r.time AS time, u.id AS user_id, u.username"
-            " FROM reservation r"
-            " JOIN user u ON r.user_id = u.id"
-        )
-        .fetchall()
-    )
+    reservations = db.session.scalars(select(Reservation)).all()
 
     # Check if there are reservations made
     if reservations is None:
