@@ -30,7 +30,7 @@
 				{#{% set reservation_time = format_time_string(reservation.time) %}#}
 				{% if reservation.time.weekday()== day and
 				reservation.time.hour == hour and is_same_week(reservation.time)%}
-				<div class="inner-slot">{{ reservation.time }}</div>
+				<div class="inner-slot">{{ reservation.user.username }}</div>
 				{% endif %}
 				{% endfor %}
 			</td>
