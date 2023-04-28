@@ -86,7 +86,7 @@ clean:
 	@rm -rf .cache
 	@rm -rf htmlcov coverage.xml .coverage
 	@find . -name *.pyc -delete
-	@find . -name *.sqlite3 -delete
+	@find . -name *.sqlite -delete
 	@find . -type d -name __pycache__ -delete
 	@rm -rf $(VENV)
 	@rm -rf .tox
