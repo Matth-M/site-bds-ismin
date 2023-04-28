@@ -16,7 +16,7 @@ class User(db.Model):
 
 class Reservation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    time = db.Column(sa.DateTime, nullable=False)
+    time = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):
         return f"<Reservation: {self.time}>"
