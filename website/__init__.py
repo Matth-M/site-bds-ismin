@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from sqlalchemy import select
 
 # DB_NAME = "database.db"
 
@@ -62,5 +63,9 @@ def create_app(test_config=None):
     from .models import db
 
     db.init_app(app)
+
+    @app.shell_context_processor
+    def shell_imports():
+        return dict(select=select)
 
     return app
