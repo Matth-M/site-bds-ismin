@@ -2,16 +2,18 @@ import os
 from flask import Flask
 from sqlalchemy import select
 
-# DB_NAME = "database.db"
+DB_NAME = "database.sqlite"
+SQLA_DB_URI = f"sqlite:///{DB_NAME}"
 
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+
     app.config.from_mapping(
         SECRET_KEY="dev",
-        DATABASE=os.path.join(app.instance_path, "flaskr.sqlite"),
-        SQLALCHEMY_DATABASE_URI="sqlite:///database.db",  # Given by the hosting platform
+        DATABASE=os.path.join(app.instance_path, DB_NAME),
+        SQLALCHEMY_DATABASE_URI=SQLA_DB_URI,  # Given by the hosting platform
     )
 
     if test_config is None:
