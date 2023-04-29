@@ -52,8 +52,7 @@ def create(reservation_time):
             error = "Slot is already taken!"
 
         # Input time is earlier than now
-        elif reservation_time.utcnow() > datetime.datetime.utcnow():
-            print(reservation_time.utcnow() < datetime.datetime.utcnow())
+        elif reservation_time < datetime.now():
             error = "Please select a valid time"
 
         if error is None:
