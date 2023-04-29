@@ -83,11 +83,6 @@ def sign_up():
             )
             try:
                 db.session.add(user)
-                # db.execute(
-                #     "INSERT INTO user (email, username, password) VALUES (?, ?, ?)",
-                #     (email, username, generate_password_hash(password)),
-                # )
-                # db.commit()
             except db.IntegrityError:
                 error = f"{email} is already used."
             else:
