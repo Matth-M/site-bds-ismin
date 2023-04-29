@@ -69,6 +69,8 @@ def sign_up():
 
         error = None
 
+        user = db.session.scalars(select(User).where(User.email == email)).first()
+
         if not username:
             error = "Username required."
         elif not password:
@@ -77,6 +79,8 @@ def sign_up():
             error = "Email required"
         elif password != password_confirm:
             error = "Passwords don't match"
+        elif user is not None:
+            error = f"{email} is already taken!"
 
         if error is None:
             user = User(
