@@ -42,6 +42,10 @@ def create_app(test_config=None):
 
     db.init_app(app)
 
+    from .admin import admin
+
+    admin.init_app(app)
+
     @app.shell_context_processor
     def shell_imports():
         return dict(select=select)
