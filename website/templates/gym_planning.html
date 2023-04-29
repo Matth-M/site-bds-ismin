@@ -9,13 +9,9 @@
 	<thead>
 		<tr>
 			<th>Hours</th>
-			<th>Monday</th>
-			<th>Tuesday</th>
-			<th>Wednesday</th>
-			<th>Thursday</th>
-			<th>Friday</th>
-			<th>Saturday</th>
-			<th>Sunday</th>
+			{% for day in range(1,8) %}
+			<th>{{ get_date(day) }}</th>
+			{% endfor %}
 		</tr>
 	</thead>
 	<tbody>
