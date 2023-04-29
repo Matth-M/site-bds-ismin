@@ -37,9 +37,15 @@ def create():
         # Check for incorrect input
         error = None
 
+        reservation = db.session.scalars(
+            select(Reservation).where(Reservation.time == reservation_time)
+        ).first()
+
         # No input time
         if not reservation_time:
-            error = "Time is required"
+            error = "Time is required!"
+        elif reservation is not None:
+            error = "Slot is already taken!"
 
         # Input time is earlier than now
         elif reservation_time.utcnow() > datetime.datetime.utcnow():
