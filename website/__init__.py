@@ -1,3 +1,4 @@
+from datetime import date
 import os
 from flask import Flask
 from sqlalchemy import select
@@ -34,7 +35,9 @@ def create_app(test_config=None):
 
     @app.context_processor
     def add_imports():
-        return dict(datetime=datetime.datetime)
+        return dict(
+            datetime=datetime.datetime,
+        )
 
     @app.context_processor
     def time_utility_processor():
