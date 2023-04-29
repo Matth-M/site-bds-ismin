@@ -30,6 +30,17 @@
 					<input type="submit" value="Cancel">
 				</form>
 				{% endif %}
+				{% elif loop.first %}
+				{# Add a button to take slot if empty #}
+				{% if True %}
+				{% set reservation_time = datetime.fromisocalendar(year,week,day) %}
+				{% set reservation_time = reservation_time.replace(hour=hour) %}
+				<form
+					action="{{ url_for('gym.create', reservation_time=reservation_time.isoformat(timespec='hours')) }}"
+					method="post">
+					<input type="submit" value="+">
+				</form>
+				{% endif %}
 				{% endif %}
 				{% endfor %}
 			</td>
@@ -39,9 +50,4 @@
 		{% endfor %}
 	</tbody>
 </table>
-<form action="{{ url_for('gym.create') }}" method="post">
-	<label for="time">Time</label>
-	<input type="datetime-local" name="time" id="time" value="time" required>
-	<input type="submit" value="Save">
-</form>
 {% endblock %}

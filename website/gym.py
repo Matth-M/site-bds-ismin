@@ -23,16 +23,20 @@ def planning():
     # Check if there are reservations made
     if reservations is None:
         reservations = []
-    return render_template("gym_planning.html", reservations=reservations)
+    return render_template(
+        "gym_planning.html",
+        reservations=reservations,
+        week=datetime.today().isocalendar().week,
+        year=datetime.today().isocalendar().year,
+    )
 
 
-@gym.route("/create", methods=["POST"])
+@gym.route("/planning/create/<string:reservation_time>", methods=["POST"])
 @login_required
-def create():
+def create(reservation_time):
     if request.method == "POST":
-        # Get the reservation_time input by the user
-        raw_reservation_time = request.form.get("time")
-        reservation_time = parse(raw_reservation_time)
+        # Get the reservation_time chosen by the user
+        reservation_time = datetime.fromisoformat(reservation_time)
 
         # Check for incorrect input
         error = None
