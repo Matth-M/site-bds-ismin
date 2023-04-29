@@ -48,6 +48,7 @@ def create(reservation_time):
         # No input time
         if not reservation_time:
             error = "Time is required!"
+        # Slot isn't empty
         elif reservation is not None:
             error = "Slot is already taken!"
 
