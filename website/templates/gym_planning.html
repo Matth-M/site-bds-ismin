@@ -21,9 +21,7 @@
 			{% for day in range(0,7) %}
 			<td>
 				{% for reservation in reservations %}
-				{# get a datetime object based on reservation.time #}
-				{# to check if the reservation belongs to this slot #}
-				{#{% set reservation_time = format_time_string(reservation.time) %}#}
+				{# check if the reservation belongs to this slot #}
 				{% if reservation.time.weekday()== day and
 				reservation.time.hour == hour and is_same_week(reservation.time)%}
 				<div class="inner-slot">{{ reservation.user.username }}</div>
