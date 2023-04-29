@@ -58,6 +58,9 @@ def logout():
 
 @auth.route("/sign-up", methods=["GET", "POST"])
 def sign_up():
+    if g.user is not None:
+        return redirect(url_for("views.index"))
+
     if request.method == "POST":
         email = request.form.get("email")
         username = request.form.get("username")
