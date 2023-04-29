@@ -16,7 +16,7 @@ from .models import db, Reservation, User
 gym = Blueprint("gym", __name__, url_prefix="/gym")
 
 
-@gym.route("/planning", methods=["GET"])
+@gym.route("/planning/", methods=["GET"])
 def planning():
     reservations = db.session.scalars(select(Reservation)).all()
 
