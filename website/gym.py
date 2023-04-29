@@ -47,15 +47,17 @@ def create():
             error = "Please select a valid time"
 
         if error is None:
-            db = get_db()
+            user = g.user
+            reservation = Reservation(
+                time=reservation_time,
+                user=user,
+            )
             try:
-                db.execute(
-                    "INSERT INTO reservation (time, user_id)" "VALUES (?, ?)",
-                    (reservation_time, g.user["id"]),
-                )
-                db.commit()
+                db.session.add(reservation)
+                db.session.commit()
             except db.IntegrityError:
                 error = "Slot is already taken."
-        flash(error)
+        else:
+            flash(error)
 
     return redirect(url_for("gym.planning"))
