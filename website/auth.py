@@ -11,11 +11,13 @@ from flask import (
     url_for,
 )
 
+from sqlalchemy import select
+
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from website.models import User
 
-from .db import get_db
+from .models import db
 
 auth = Blueprint("auth", __name__)
 
@@ -34,13 +36,13 @@ def login():
         # Check if user exists
         if user is None:
             error = "Incorrect email."
-        elif not check_password_hash(user["password"], str(password)):
+        elif not check_password_hash(user.password, str(password)):
             error = "Incorrect Password"
 
         # Add user info to the session
         if error is None:
             session.clear()
-            session["user_id"] = user["id"]
+            session["user_id"] = user.id
             return redirect(url_for("views.index"))
         else:
             flash(error)
@@ -62,7 +64,6 @@ def sign_up():
         password = request.form.get("password")
         password_confirm = request.form.get("password-confirm")
 
-        db = get_db()
         error = None
 
         if not username:
@@ -75,12 +76,18 @@ def sign_up():
             error = "Passwords don't match"
 
         if error is None:
+            user = User(
+                email=email,
+                username=username,
+                password=generate_password_hash(password),
+            )
             try:
-                db.execute(
-                    "INSERT INTO user (email, username, password) VALUES (?, ?, ?)",
-                    (email, username, generate_password_hash(password)),
-                )
-                db.commit()
+                db.session.add(user)
+                # db.execute(
+                #     "INSERT INTO user (email, username, password) VALUES (?, ?, ?)",
+                #     (email, username, generate_password_hash(password)),
+                # )
+                # db.commit()
             except db.IntegrityError:
                 error = f"{email} is already used."
             else:
@@ -99,9 +106,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = (
-            get_db().execute("SELECT * FROM user WHERE id = ?", (user_id,)).fetchone()
-        )
+        g.user = db.session.scalars(select(User).where(User.id == user_id)).first()
 
 
 def login_required(view):
