@@ -31,7 +31,11 @@
 				{% if reservation.time.weekday()== day and
 				reservation.time.hour == hour and is_same_week(reservation.time)%}
 				<div class="inner-slot">{{ reservation.user.username }}</div>
-				{% if g.user == reservation.user %}<button>Remove</button>{% endif %}
+				{% if g.user == reservation.user %}
+				<form action="{{ url_for('gym.delete', reservation_id=reservation.id) }}" method="post">
+					<input type="submit" value="Cancel">
+				</form>
+				{% endif %}
 				{% endif %}
 				{% endfor %}
 			</td>
