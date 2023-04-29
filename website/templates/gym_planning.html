@@ -31,6 +31,7 @@
 				{% if reservation.time.weekday()== day and
 				reservation.time.hour == hour and is_same_week(reservation.time)%}
 				<div class="inner-slot">{{ reservation.user.username }}</div>
+				{% if g.user == reservation.user %}<button>Remove</button>{% endif %}
 				{% endif %}
 				{% endfor %}
 			</td>
