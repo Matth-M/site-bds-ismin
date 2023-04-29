@@ -94,6 +94,7 @@ def sign_up():
             )
             try:
                 db.session.add(user)
+                db.session.commit()
             except db.IntegrityError:
                 error = f"{email} is already used."
             else:
