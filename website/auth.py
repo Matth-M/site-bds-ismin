@@ -80,7 +80,11 @@ def sign_up():
         elif password != password_confirm:
             error = "Passwords don't match"
         elif user is not None:
-            error = f"{email} is already taken!"
+            error = f"{email} isn't available!"
+
+        user = db.session.scalars(select(User).where(User.username == username)).first()
+        if user is not None:
+            error = f"{username} isn't available!"
 
         if error is None:
             user = User(
