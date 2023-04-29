@@ -1,4 +1,3 @@
-from datetime import date
 import os
 from flask import Flask
 from sqlalchemy import select
@@ -29,71 +28,6 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
-
-    # Make following imports available in templates
-    import datetime
-
-    @app.context_processor
-    def add_imports():
-        return dict(
-            datetime=datetime.datetime,
-        )
-
-    @app.context_processor
-    def time_utility_processor():
-        def is_same_week(date):
-            today = datetime.datetime.today()
-            year, week, _ = date.isocalendar()
-            current_year, current_week, _ = today.isocalendar()
-            return year == current_year and week == current_week
-
-        def get_date(weekday):
-            today = datetime.datetime.today()
-            today_week_nb = today.isocalendar()[1]
-
-            day = date.fromisocalendar(
-                today.year,
-                today_week_nb,
-                weekday,
-            )
-
-            return f"{get_day_str(day.weekday())} {day.day} {get_month_str(day.month)}"
-
-        def get_month_str(month_nb):
-            months = [
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December",
-            ]
-            return months[month_nb]
-
-        def get_day_str(day_nb):
-            days = [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-                "Sunday",
-            ]
-
-            return days[day_nb]
-
-        return dict(
-            is_same_week=is_same_week,
-            get_date=get_date,
-            get_month_str=get_month_str,
-        )
 
     # Import blueprints
     from .views import views
