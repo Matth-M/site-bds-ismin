@@ -67,3 +67,32 @@ def create():
             flash(error)
 
     return redirect(url_for("gym.planning"))
+
+
+@gym.route("/delete/<int:reservation_id>", methods=["POST"])
+@login_required
+def delete(reservation_id):
+    if request.method == "POST":
+        # Fetch the reservation
+        reservation = db.session.get(Reservation, reservation_id)
+        error = None
+
+        # No input time
+        if not reservation:
+            error = "No reservation found!"
+
+        user = reservation.user
+
+        if user != g.user:
+            error = "You can't delete others reservation"
+
+        if error is None:
+            try:
+                db.session.delete(reservation)
+                db.session.commit()
+            except db.IntegrityError:
+                error = "Internal Error"
+        else:
+            flash(error)
+
+    return redirect(url_for("gym.planning"))
