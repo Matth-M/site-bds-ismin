@@ -73,7 +73,7 @@ def create(reservation_time):
     return redirect(url_for("gym.planning"))
 
 
-@gym.route("/delete/<int:reservation_id>", methods=["POST"])
+@gym.route("/planning/delete/<int:reservation_id>", methods=["POST"])
 @login_required
 def delete(reservation_id):
     if request.method == "POST":
