@@ -66,11 +66,6 @@ install-packages: $(VENV)
 dev-server: $(VENV)
 	$(VENV_BIN_DIR)/flask --app $(APP) --debug run
 
-# Clear the existing data and create new tables
-.PHONY: init-db
-init-db: $(VENV)
-	$(VENV_BIN_DIR)/flask --app $(APP) $(INIT_DB_CMD)
-
 .PHONY: sass-watch
 sass-watch: $(SASS_DIR)
 	$(SASS) --watch $(SASS_DIR):$(STATIC_DIR) # $(STATIC_DIR)/index.css
@@ -78,7 +73,6 @@ sass-watch: $(SASS_DIR)
 .PHONY: shell
 shell: $(VENV)
 	$(PYTHON) -m flask --app $(APP) shell
-
 
 
 .PHONY: clean
