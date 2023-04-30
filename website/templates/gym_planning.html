@@ -18,7 +18,9 @@
         <tbody>
             {% for hour in range(6,24) %}
                 <tr>
-                    <th>{{ "{}H- {}H".format(hour,hour+1) }}</th>
+                    <th>
+                        {{ "{}H - {}H".format(hour,hour+1 if hour+1 < 24 else 0) }}
+                    </th>
                     {% for day in range(1,8) %}
                         <td>
                             {% set must_add_create_btn = True %}
