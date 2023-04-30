@@ -1,3 +1,4 @@
+from datetime import datetime
 import os
 from flask import Flask
 from sqlalchemy import select
@@ -40,6 +41,7 @@ def create_app():
         return dict(
             select=select,
             generate_password_hash=generate_password_hash,
+            datetime=datetime,
         )
 
     return app
