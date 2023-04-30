@@ -67,8 +67,15 @@ dev-server: $(VENV)
 	$(VENV_BIN_DIR)/flask --app $(APP) --debug run
 
 .PHONY: sass-watch
-sass-watch: $(SASS_DIR)
+sass-watch: $(STATIC_DIR)
 	$(SASS) --watch $(SASS_DIR):$(STATIC_DIR) # $(STATIC_DIR)/index.css
+
+.PHONY: sass-build
+sass-build: $(STATIC_DIR)
+	$(SASS)  $(SASS_DIR):$(STATIC_DIR)
+
+$(STATIC_DIR):
+	@mkdir -p $(APP_DIR)/static
 
 .PHONY: shell
 shell: $(VENV)
