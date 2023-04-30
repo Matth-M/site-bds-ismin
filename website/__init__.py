@@ -15,6 +15,8 @@ def create_app(test_config=None):
         DATABASE=os.path.join(app.instance_path, DB_NAME),
         SQLALCHEMY_DATABASE_URI=SQLA_DB_URI,  # Given by the hosting platform
     )
+    app.config["BASIC_AUTH_USERNAME"] = "admin"
+    app.config["BASIC_AUTH_PASSWORD"] = "pwd"
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -42,9 +44,11 @@ def create_app(test_config=None):
 
     db.init_app(app)
 
-    from .admin import admin
+    from .admin import admin, basic_auth, MyAdminIndexView
 
-    admin.init_app(app)
+    admin.init_app(app, index_view=MyAdminIndexView())
+
+    basic_auth.init_app(app)
 
     @app.shell_context_processor
     def shell_imports():

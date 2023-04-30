@@ -5,6 +5,7 @@ distlib==0.3.6
 filelock==3.9.0
 Flask==2.2.2
 Flask-Admin==1.6.1
+Flask-BasicAuth==0.2.0
 flask-sock==0.6.0
 Flask-SQLAlchemy==3.0.3
 greenlet==2.0.2
