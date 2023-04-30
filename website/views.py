@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, redirect, url_for
 
-views = Blueprint('views', __name__)
+views = Blueprint("views", __name__)
 
 
-@views.route('/')
+@views.route("/")
 def index():
-    return render_template("index.html")
+    return redirect(url_for("gym.planning"))
