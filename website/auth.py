@@ -19,6 +19,8 @@ from website.models import User
 
 from .models import db
 
+from .admin import basic_auth
+
 auth = Blueprint("auth", __name__)
 
 
@@ -57,6 +59,7 @@ def logout():
 
 
 @auth.route("/sign-up", methods=["GET", "POST"])
+@basic_auth.required  # Only admins can create new users
 def sign_up():
     if g.user is not None:
         return redirect(url_for("views.index"))
