@@ -1,52 +1,53 @@
 {% extends "base.html" %}
 {% block css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='planning.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='planning.css') }}">
 {% endblock %}
 {% block title %}Planning{% endblock %}
 {% block content %}
-<h1 id="title">Planning</h1>
-<table id="planning">
-	<thead>
-		<tr>
-			<th>Hours</th>
-			{% for day in range(1,8) %}
-			<th>{{ get_date(day) }}</th>
-			{% endfor %}
-		</tr>
-	</thead>
-	<tbody>
-		{% for hour in range(6,24) %}
-		<tr>
-			<th>{{ "{}H- {}H".format(hour,hour+1) }}</th>
-			{% for day in range(1,8) %}
-			<td>
-				{% set must_add_create_btn = True %}
-				{% for reservation in reservations %}
-				{# check if the reservation belongs to this slot #}
-				{% if reservation.time.isoweekday()== day and
-				reservation.time.hour == hour and is_same_week(reservation.time)%}
-				<div class="inner-slot">{{ reservation.user.username }}</div>
-				{% set must_add_create_btn = False %}
-				{% if g.user == reservation.user %}
-				<form action="{{ url_for('gym.delete', reservation_id=reservation.id) }}" method="post">
-					<input type="submit" value="Cancel">
-				</form>
-				{% endif %}
-				{% endif %}
-				{% endfor %}
-				{% if must_add_create_btn %}
-				{% set reservation_time = datetime.fromisocalendar(year,week,day).replace(hour=hour) %}
-				<form
-					action="{{ url_for('gym.create', reservation_time=reservation_time.isoformat(timespec='hours')) }}"
-					method="post">
-					<input type="submit" value="+">
-				</form>
-				{% endif %}
-			</td>
-			{% endfor %}
-		</tr>
-		</tr>
-		{% endfor %}
-	</tbody>
+    <h1 id="title">Planning</h1>
+    <table id="planning">
+        <thead>
+            <tr>
+                <th>Hours</th>
+                {% for day in range(1,8) %}
+                    <th>{{ get_date(day) }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for hour in range(6,24) %}
+                <tr>
+                    <th>{{ "{}H- {}H".format(hour,hour+1) }}</th>
+                    {% for day in range(1,8) %}
+                        <td>
+                            {% set must_add_create_btn = True %}
+                            {% for reservation in reservations %}
+                                {# check if the reservation belongs to this slot #}
+                                {% if reservation.time.isoweekday()== day and
+                                    reservation.time.hour == hour and is_same_week(reservation.time)%}
+                                    <div class="inner-slot">{{ reservation.user.username }}</div>
+                                    {% set must_add_create_btn = False %}
+                                    {% if g.user == reservation.user %}
+                                        <form action="{{ url_for('gym.delete', reservation_id=reservation.id) }}"
+                                              method="post">
+                                            <input type="submit" value="Cancel">
+                                        </form>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if must_add_create_btn %}
+                                {% set reservation_time = datetime.fromisocalendar(year,week,day).replace(hour=hour) %}
+                                <form action="{{ url_for('gym.create', reservation_time=reservation_time.isoformat(timespec='hours')) }}"
+                                      method="post">
+                                    <input type="submit" value="+">
+                                </form>
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            </tr>
+        {% endfor %}
+    </tbody>
 </table>
 {% endblock %}
