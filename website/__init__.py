@@ -37,6 +37,9 @@ def create_app():
 
     @app.shell_context_processor
     def shell_imports():
-        return dict(select=select)
+        return dict(
+            select=select,
+            generate_password_hash=generate_password_hash,
+        )
 
     return app
