@@ -23,13 +23,14 @@
                     </th>
                     {% for day in range(1,8) %}
                         <td>
-                            {% set must_add_create_btn = True %}
+                            {% set ns = namespace(must_add_create_btn = True) %}
                             {% for reservation in reservations %}
                                 {# check if the reservation belongs to this slot #}
                                 {% if reservation.time.isoweekday()== day and
                                     reservation.time.hour == hour and is_same_week(reservation.time)%}
                                     <div class="inner-slot">{{ reservation.user.username }}</div>
-                                    {% set must_add_create_btn = False %}
+                                    {# Reservation is taken so there should not be an add button #}
+                                    {% set ns.must_add_create_btn = False %}
                                     {% if g.user == reservation.user %}
                                         <form action="{{ url_for('gym.delete', reservation_id=reservation.id) }}"
                                               method="post">
@@ -38,7 +39,7 @@
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
-                            {% if must_add_create_btn %}
+                            {% if ns.must_add_create_btn %}
                                 {% set reservation_time = datetime.fromisocalendar(year,week,day).replace(hour=hour) %}
                                 <form action="{{ url_for('gym.create', reservation_time=reservation_time.isoformat(timespec='hours')) }}"
                                       method="post">
