@@ -1,0 +1,78 @@
+header {
+  grid-area: header;
+  color: white;
+  background-color: #148410;
+  padding: 0 30px;
+  display: flex;
+  height: 80px;
+}
+header .title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+header h1 {
+  flex-grow: 0;
+}
+header .links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto;
+}
+header ul {
+  list-style: none;
+  display: flex;
+  gap: 0 50px;
+  padding: 0 20px;
+}
+header ul li {
+  flex-grow: 1;
+}
+header ul a {
+  color: white;
+  text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+}
+table td,
+table th {
+  padding: 5px 10px;
+  border: 1px solid black;
+}
+table .inner-slot {
+  text-align: center;
+  background-color: #148410;
+  color: white;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+body,
+html {
+  height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  padding: 0 30px;
+}
+
+#title {
+  margin: 2rem 0;
+}
+
+/*# sourceMappingURL=planning.css.map */
