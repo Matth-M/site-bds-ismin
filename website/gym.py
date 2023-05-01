@@ -120,14 +120,14 @@ def time_utility_processor():
         current_year, current_week, _ = today.isocalendar()
         return year == current_year and week == current_week
 
-    def get_date(weekday):
-        today = datetime.today()
-        today_week_nb = today.isocalendar()[1]
+    def get_date(isoweekday):
+        today = datetime.now()
+        today_week_nb = today.isocalendar().week
 
         day = date.fromisocalendar(
             today.year,
             today_week_nb,
-            weekday,
+            isoweekday,
         )
 
         return f"{get_day_str(day.weekday())} {day.day} {get_month_str(day.month)}"
@@ -147,7 +147,7 @@ def time_utility_processor():
             "November",
             "December",
         ]
-        return months[month_nb]
+        return months[month_nb - 1]
 
     def get_day_str(day_nb):
         days = [
